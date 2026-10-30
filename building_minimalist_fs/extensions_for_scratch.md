@@ -37,7 +37,7 @@ rambo@ub2404:/tmp/embedded_rootfs$ cp /bin/busybox  bin/
 rambo@ub2404:/tmp/embedded_rootfs$ cd bin/
 rambo@ub2404:/tmp/embedded_rootfs/bin$ ./busybox --install -s .
 
-\# =============================================
+# =============================================
 拆解命令含义
 ./busybox: 当前目录下的BusyBox二进制程序。它是一个被静态编译好的、包含了几乎所有常用Linux工具(如sh、ls、cp等)的单一可执行文件
 
@@ -71,6 +71,8 @@ lrwxrwxrwx    1 0   0    12 Oct 30 14:59 /bin/mv -> /bin/busybox
 当你输入ls时，实际上是启动了BusyBox，而BusyBox看到自己被命名为ls，就完美伪装成了ls命令为你服务
 
 这种设计将整个Linux用户态工具链的大小压缩到了几MB甚至几百KB，是构建嵌入式系统和极简容器(如Alpine)的灵魂技术
+
+# =============================================
 
 
 
