@@ -279,4 +279,8 @@ Superblock backups stored on blocks:
 what are you doing?
 
 
+
+到这一步就已经完整走通了从零构建精简根文件系统 --> 引导内存盘(Initramfs) --> 驱动BusyBox Init --> 挂载并格式化虚拟硬盘 的全套嵌入式Linux开发闭环！
+
+
 ```
