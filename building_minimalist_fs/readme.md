@@ -21,21 +21,22 @@ Alpine官方渠道：直接访问Alpine Linux官网的下载页面获取不同�
 Arch Linux：Arch Linux官网提供的archlinux-bootstrap压缩包
 ```
 Ubuntu Base：Ubuntu官方提供的 [Ubuntu Base tarball](https://cdimage.ubuntu.com/ubuntu-base/)，适合需要apt生态的场景
+
 Debian：Debian官方维护的 [Debuerreotype](https://github.com/debuerreotype/debuerreotype) 工具生成的精简tarball
 
 
 
 # 自己制作一个这样的 tar.gz 包
-> 该阶段仅限于说明个大概，详情需要看下述的 "实操" 部分
+> 该阶段仅限于说明个大概，详情需要看本仓库中具体的文件系统构建文档
 ## 构建Alpine根文件系统
 ```shell
-完全可以自己从零“孵化”一个。以在Linux宿主机上制作定制版的Alpine根文件系统为例，操作步骤如下：
+完全可自己从零构建一个。以在Linux宿主机上制作定制版的Alpine根文件系统为例，操作步骤如下：
 
 步骤1：准备工具与目录
-在宿主机上准备一个工作目录，并获取Alpine的包管理工具apk。如果你当前使用的是支持apk的系统（或通过下载静态编译的apk二进制文件），可以直接进行引导安装
+在宿主机上准备一个工作目录，并获取Alpine的包管理工具apk。如果你当前使用的是支持apk的系统(或通过下载静态编译的apk二进制文件)，可直接进行引导安装
 
 步骤2：初始化根目录并安装核心组件
-在指定目录下初始化一个带有alpine-base（包含核心工具和apk）的独立根文件系统：
+在指定目录下初始化一个带有alpine-base(包含核心工具和apk)的独立根文件系统：
 # 创建目标根目录
 mkdir -p /tmp/my-rootfs
 

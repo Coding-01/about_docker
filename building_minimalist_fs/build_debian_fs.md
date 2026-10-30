@@ -1,4 +1,4 @@
-> 本次使用方案B：使用官方debuerreotype (追求极致瘦身与确定性)
+> 本次使用readme.md中提到的方案B：使用官方debuerreotype (追求极致瘦身与确定性)
 > 该方式通常在Docker容器中运行以保证环境纯净
 ```shell
 rambo@ub2404:~$ mkdir test3 && cd test3
@@ -44,7 +44,7 @@ Debian官方的快照服务器大约从2011年左右开始记录全球软件源�
 ```
 
 # 执行精简与优化
-> (移除man手册、locale、配置apt源等)
+> 移除man手册、locale、配置apt源等
 ```shell
 # 1. 初始化
 sudo docker run --rm --privileged -v /tmp/debian-output:/output debuerreotype debuerreotype-init /output/rootfs bookworm 2026-08-05
@@ -90,4 +90,5 @@ ID=debian
 HOME_URL="https://www.debian.org/"
 SUPPORT_URL="https://www.debian.org/support"
 BUG_REPORT_URL="https://bugs.debian.org/"
+
 ```
