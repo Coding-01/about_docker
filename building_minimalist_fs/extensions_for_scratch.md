@@ -324,3 +324,65 @@ what are you doing?
 
 
 ```
+
+
+
+
+# 自动挂载磁盘
+```shell
+rambo@ub2404:/tmp/embedded_rootfs$ vim init
+#!/bin/sh
+
+# 1. 挂载内核必需的虚拟文件系统
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs devtmpfs /dev
+
+# 2. 打印欢迎信息与系统状态
+clear
+echo "=========================================="
+echo "  Welcome to Custom Embedded Linux System!"
+echo "=========================================="
+echo "Kernel version: $(uname -r)"
+echo "Available memory:"
+free -m
+
+# 3. 按UUID动态挂载持久化分区
+mkdir -p /mnt/data
+MY_UUID="2c4f3aea-b1bd-4452-bf7a-9e549768a59c"
+
+# devtmpfs 会自动在 /dev/disk/by-uuid/ 下生成以 UUID 命名的软链接，指向真实的盘符（如 sda1）
+if [ -e "/dev/disk/by-uuid/$MY_UUID" ]; then
+    mount -t ext4 "/dev/disk/by-uuid/$MY_UUID" /mnt/data
+    echo "Successfully mounted UUID: $MY_UUID to /mnt/data"
+else
+    echo "Warning: Partition with UUID $MY_UUID not found!"
+fi
+
+# 4. 启动 init 守护进程
+exec /sbin/init
+
+
+
+
+# 重新打包根文件系统
+每次修改了根目录下的文件后，都需要重新将它们打包为 cpio.gz 格式的内存盘镜像：
+find . -print0 | cpio --null -o --format=newc | gzip -9 > /tmp/embedded_initramfs.cpio.gz
+
+带有-drive参数的QEMU启动命令：
+sudo qemu-system-x86_64 \
+    -kernel /tmp/embedded_vmlinuz \
+    -initrd /tmp/embedded_initramfs.cpio.gz \
+    -drive file=/tmp/embedded_disk.img,format=raw,if=ide \
+    -nographic \
+    -append "console=ttyS0 panic=1"
+
+启动进入系统后无需手动敲 mkdir 和 mount,直接执行 df -Th 就会发现/dev/sda1 就已经自动挂载到了 /mnt/data 目录上
+你可以直接读取之前存进去的测试文件来验证持久化：
+cat /mnt/data/hello.txt
+
+
+
+
+
+```
