@@ -53,12 +53,12 @@ rambo@ub2404:/tmp/embedded_rootfs/bin$ ./busybox --install -s .
 
 单一程序，多重身份：
 BusyBox 的代码内部会检查一个关键变量："我是谁(我被执行时叫什么名字/argv[0] 是什么)?"
-如果你执行 ./ls，程序启动时发现自己的名字叫 ls，它就会在内部直接跳转到实现 ls 功能的代码逻辑去执行。
+如果你执行 ./ls，程序启动时发现自己的名字叫 ls，它就会在内部直接跳转到实现 ls 功能的代码逻辑去执行
 
 如果你执行 ./cp，发现自己叫cp，它就会去执行 cp 的逻辑
 
 软链接的魔法：
---install -s . 这条命令做的事情非常简单粗暴——它读取 BusyBox 内部支持的所有命令列表（比如 sh、ls、grep、rm 等），然后在当前目录下为每一个名字创建一个指向 busybox 的软链接。
+--install -s . 这条命令做的事情非常简单粗暴 --- 它读取BusyBox内部支持的所有命令列表(比如sh、ls、grep、rm等)，然后在当前目录下为每一个名字创建一个指向busybox的软链接
 
 可用 ls -l 查看生成的这些文件：
 ~ # for i in ls cp sh mv;do ls -alh /bin/$i;done
